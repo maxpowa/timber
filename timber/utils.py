@@ -44,7 +44,7 @@ class Message(object):
         bg = ''
         if (match.group(2)):
             bg = match.group(2)
-        return '<span class="fg{0} bg{1}">{2}</span>'.format(match.group(1), bg, match.group(3))
+        return u'<span class="fg{0} bg{1}">{2}</span>'.format(match.group(1), bg, match.group(3))
 
 
     def html(self):
@@ -81,9 +81,9 @@ class Message(object):
 
         fmt = [
             (r'\003([0-9]{1,2})[,]?([0-9]{1,2})?([^\003\017]+)', self.replace_groups),
-            (r'\002([^\002\017<]+)(\002)?', lambda m: '<b>{}</b>'.format(m.group(1))),
-            (r'\037([^\037\017<]+)(\037)?', lambda m: '<u>{}</u>'.format(m.group(1))),
-            (r'\035([^\035\017<]+)(\035)?', lambda m: '<i>{}</i>'.format(m.group(1)))
+            (r'\002([^\002\017<]+)(\002)?', lambda m: u'<b>{}</b>'.format(m.group(1))),
+            (r'\037([^\037\017<]+)(\037)?', lambda m: u'<u>{}</u>'.format(m.group(1))),
+            (r'\035([^\035\017<]+)(\035)?', lambda m: u'<i>{}</i>'.format(m.group(1)))
         ]
         for regex, rep_func in fmt:
             response = re.sub(regex, rep_func, response)
