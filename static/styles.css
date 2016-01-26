@@ -47,6 +47,9 @@ a {
     text-decoration: none;
     color: #5A5A5A;
 }
+#channels #calendar a.today {
+    color: #00ffff;
+}
 #channels #calendar a.current {
     color: white;
 }

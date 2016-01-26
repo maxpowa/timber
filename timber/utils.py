@@ -261,6 +261,7 @@ def lru_cache(maxsize=16, typed=False):
     return decorating_function
 
 
+@lru_cache()
 def get_calendar(channel, date, links=True):
     calendar = TextCalendar(firstweekday=6).formatmonth(date.year, date.month)
 
