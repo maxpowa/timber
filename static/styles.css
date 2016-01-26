@@ -1,86 +1,197 @@
 body {
-  background-color: black;
-  font-family: "Menlo", "Monaco", monospace;
-  font-size: 11px;
-  line-height: 14px;
-  color: white;
-  margin: 0;
-  padding: 0; }
-
+    background-color: black;
+    font-family: "Menlo", "Monaco", monospace;
+    font-size: 11px;
+    line-height: 14px;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
 section, header, pre {
-  display: block;
-  margin: 0; }
-
+    display: block;
+    margin: 0;
+}
 pre {
-  font-family: "Menlo", "Monaco", monospace; }
-
+    font-family: "Menlo", "Monaco", monospace;
+}
 a {
-  color: white; }
-
+    color: white;
+}
 #channels {
-  position: fixed;
-  width: 165px;
-  top: 0;
-  overflow: auto;
-  overflow-x: hidden;
-  height: 100%;
-  border-right: 1px solid #5A5A5A; }
-  #channels ul {
+    position: fixed;
+    width: 165px;
+    top: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    height: 100%;
+    border-right: 1px solid #5A5A5A;
+}
+#channels ul {
     list-style-type: none;
     margin: 0;
     padding: 10px;
-    border-top: 1px solid #5A5A5A; }
-    #channels ul a {
-      color: #777777;
-      text-decoration: none; }
-    #channels ul li.current a {
-      color: white; }
-  #channels #calendar {
-    color: #5A5A5A;
-    padding: 10px; }
-    #channels #calendar a {
-      text-decoration: none;
-      color: #5A5A5A; }
-      #channels #calendar a.current {
-        color: white; }
-
-#log {
-  padding: 10px;
-  margin: 0 0 0 166px;
-  color: #5A5A5A; }
-  #log div.highlight {
-    color: white; }
-    #log div.highlight span.nickname {
-      color: #fb1263; }
-  #log a[name] {
-    color: #5A5A5A;
-    text-decoration: none; }
-    #log a[name]:hover {
-      text-decoration: underline; }
-  #log a {
-    color: #f6f840; }
-
-body:not(.highlight) .msg {
-  color: white; }
-body:not(.highlight) span.nickname {
-  color: #12FB32; }
-
-header {
-  background-color: black;
-  height: 1em;
-  line-height: 0;
-  position: relative;
-  margin-bottom: 4px;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #5A5A5A; }
-  header a {
+    border-top: 1px solid #5A5A5A;
+}
+#channels ul a {
+    color: #777777;
     text-decoration: none;
-    color: #555555; }
-  header span {
+}
+#channels ul li.current a {
+    color: white;
+}
+#channels #calendar {
+    color: #5A5A5A;
+    padding: 10px;
+}
+#channels #calendar a {
+    text-decoration: none;
+    color: #5A5A5A;
+}
+#channels #calendar a.current {
+    color: white;
+}
+#log {
+    padding: 10px;
+    margin: 0 0 0 166px;
+    color: #5A5A5A;
+}
+#log div.highlight {
+    color: white;
+}
+#log div.highlight span.nickname {
+    color: #fb1263;
+}
+#log a[name] {
+    color: #5A5A5A;
+    text-decoration: none;
+}
+#log a[name]:hover {
+    text-decoration: underline;
+}
+#log a {
+    color: #f6f840;
+}
+#log span.bg0 {
+    background-color: #ffffff;
+}
+#log span.bg1 {
+    background-color: #000000;
+}
+#log span.bg2 {
+    background-color: #000088;
+}
+#log span.bg3 {
+    background-color: #008800;
+}
+#log span.bg4 {
+    background-color: #ff0000;
+}
+#log span.bg5 {
+    background-color: #880000;
+}
+#log span.bg6 {
+    background-color: #880088;
+}
+#log span.bg7 {
+    background-color: #ff8800;
+}
+#log span.bg8 {
+    background-color: #ffff00;
+}
+#log span.bg9 {
+    background-color: #00ff00;
+}
+#log span.bg10 {
+    background-color: #008888;
+}
+#log span.bg11 {
+    background-color: #00ffff;
+}
+#log span.bg12 {
+    background-color: #0000ff;
+}
+#log span.bg13 {
+    background-color: #ff00ff;
+}
+#log span.bg14 {
+    background-color: #888888;
+}
+#log span.bg15 {
+    background-color: #cccccc;
+}
+#log span.fg0 {
+    color: #ffffff;
+}
+#log span.fg1 {
+    color: #000000;
+}
+#log span.fg2 {
+    color: #000088;
+}
+#log span.fg3 {
+    color: #008800;
+}
+#log span.fg4 {
+    color: #ff0000;
+}
+#log span.fg5 {
+    color: #880000;
+}
+#log span.fg6 {
+    color: #880088;
+}
+#log span.fg7 {
+    color: #ff8800;
+}
+#log span.fg8 {
+    color: #ffff00;
+}
+#log span.fg9 {
+    color: #00ff00;
+}
+#log span.fg10 {
+    color: #008888;
+}
+#log span.fg11 {
+    color: #00ffff;
+}
+#log span.fg12 {
+    color: #0000ff;
+}
+#log span.fg13 {
+    color: #ff00ff;
+}
+#log span.fg14 {
+    color: #888888;
+}
+#log span.fg15 {
+    color: #cccccc;
+}
+body:not(.highlight) .msg {
+    color: white;
+}
+body:not(.highlight) span.nickname {
+    color: #12FB32;
+}
+header {
+    background-color: black;
+    height: 1em;
+    line-height: 0;
+    position: relative;
+    margin-bottom: 4px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #5A5A5A;
+}
+header a {
+    text-decoration: none;
+    color: #555555;
+}
+header span {
     position: absolute;
     left: 10px;
     top: 0;
-    font-size: 18px; }
+    font-size: 18px;
+}

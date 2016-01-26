@@ -3,6 +3,6 @@
     % if message.intent == 'PRIVMSG':
       <span class="nickname">&lt;{{message.nick}}&gt;</span>
     % end
-    {{message.text()}}
+    {{! message.html() }}
   <br>
 </div>

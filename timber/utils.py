@@ -2,6 +2,7 @@
 from calendar import TextCalendar
 import datetime
 import re
+import cgi
 from collections import namedtuple
 from functools import update_wrapper
 from threading import RLock
@@ -26,8 +27,11 @@ class Message(object):
         self.row = row
         self.intent = row['intent']
         self.message = row['message']
-        self.ts = datetime.datetime.strptime(row['sent_at'], "%Y-%m-%d %H:%M:%S.%f")
-        self.timestamp = int((self.ts- datetime.datetime(1970,1,1)).total_seconds())
+        try:
+            self.ts = datetime.datetime.strptime(row['sent_at'], "%Y-%m-%d %H:%M:%S.%f")
+        except:
+            self.ts = datetime.datetime.strptime(row['sent_at'], "%Y-%m-%d %H:%M:%S")
+        self.timestamp = int((self.ts - datetime.datetime(1970,1,1)).total_seconds())
         self.nick = row['nick']
         self.cssClass = 'msg' if self.intent == 'PRIVMSG' or self.intent == 'ACTION' else 'info'
 
@@ -36,7 +40,14 @@ class Message(object):
         return self.ts.strftime('%H:%M')
 
 
-    def text(self):
+    def replace_groups(self, match):
+        bg = ''
+        if (match.group(2)):
+            bg = match.group(2)
+        return '<span class="fg{0} bg{1}">{2}</span>'.format(match.group(1), bg, match.group(3))
+
+
+    def html(self):
         MESSAGE_TPL = u"{message}"
         ACTION_TPL = u"* {nick} {message}"
         NICK_TPL = u"{nick} is now {message}"
@@ -46,24 +57,38 @@ class Message(object):
         KICK_TPL = u"{nick} kicked {message}"
         MODE_TPL = u"{nick} set {message}"
 
+        response = ''
         intent = self.intent
         msg = self.row
         if (intent == 'PRIVMSG'):
-            return MESSAGE_TPL.format(**msg)
+            response = MESSAGE_TPL.format(**msg)
         elif (intent == 'ACTION'):
-            return ACTION_TPL.format(**msg)
+            response =  ACTION_TPL.format(**msg)
         elif (intent == 'NICK'):
-            return NICK_TPL.format(**msg)
+            response =  NICK_TPL.format(**msg)
         elif (intent == 'JOIN'):
-            return JOIN_TPL.format(**msg)
+            response =  JOIN_TPL.format(**msg)
         elif (intent == 'PART'):
-            return PART_TPL.format(**msg)
+            response =  PART_TPL.format(**msg)
         elif (intent == 'QUIT'):
-            return QUIT_TPL.format(**msg)
+            response =  QUIT_TPL.format(**msg)
         elif (intent == 'KICK'):
-            return KICK_TPL.format(**msg)
+            response =  KICK_TPL.format(**msg)
         elif (intent == 'MODE'):
-            return MODE_TPL.format(**msg)
+            response =  MODE_TPL.format(**msg)
+
+        response = cgi.escape(response)
+
+        fmt = [
+            (r'\003([0-9]{1,2})[,]?([0-9]{1,2})?([^\003\017]+)', self.replace_groups),
+            (r'\002([^\002\017<]+)(\002)?', lambda m: '<b>{}</b>'.format(m.group(1))),
+            (r'\037([^\037\017<]+)(\037)?', lambda m: '<u>{}</u>'.format(m.group(1))),
+            (r'\035([^\035\017<]+)(\035)?', lambda m: '<i>{}</i>'.format(m.group(1)))
+        ]
+        for regex, rep_func in fmt:
+            response = re.sub(regex, rep_func, response)
+
+        return response
 
 
 class _HashedSeq(list):
