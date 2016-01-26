@@ -89,7 +89,7 @@ class Message(object):
             response = re.sub(regex, rep_func, response)
 
         if (intent == 'PRIVMSG'):
-            response = '<span class="nickname">&lt;{}&gt;</span> {}'.format(msg['nick'], response)
+            response = u'<span class="nickname">&lt;{}&gt;</span> {}'.format(msg['nick'], response)
 
         return response
 
