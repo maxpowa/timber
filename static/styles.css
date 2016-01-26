@@ -170,6 +170,9 @@ a {
 #log span.fg15 {
     color: #cccccc;
 }
+#log div.msg {
+    white-space: pre-wrap;
+}
 body:not(.highlight) .msg {
     color: white;
 }

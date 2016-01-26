@@ -88,6 +88,9 @@ class Message(object):
         for regex, rep_func in fmt:
             response = re.sub(regex, rep_func, response)
 
+        if (intent == 'PRIVMSG'):
+            response = '<span class="nickname">&lt;{}&gt;</span> {}'.format(msg['nick'], response)
+
         return response
 
 

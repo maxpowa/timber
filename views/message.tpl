@@ -1,8 +1,1 @@
-<div class="{{message.cssClass}}">
-  <a href="#{{message.timestamp}}" name="{{message.timestamp}}">{{message.pretty_time()}}</a>
-    % if message.intent == 'PRIVMSG':
-      <span class="nickname">&lt;{{message.nick}}&gt;</span>
-    % end
-    {{! message.html() }}
-  <br>
-</div>
+<div class="{{message.cssClass}}"><a href="#{{message.timestamp}}" name="{{message.timestamp}}">{{message.pretty_time()}}</a> {{! message.html() }}</div>
