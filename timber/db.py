@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import datetime
-from timber.utils import Channel, Message
+from timber.utils import Channel, Message, lru_cache
 
 
 def dict_factory(cursor, row):
@@ -19,6 +19,7 @@ def get_db_cursor(filename):
     return c.cursor()
 
 
+@lru_cache()
 def get_channels(file, current):
     c = get_db_cursor(file)
     c.execute('SELECT channel FROM logquery GROUP BY channel ORDER BY channel ASC')
@@ -30,6 +31,7 @@ def get_channels(file, current):
     return channels
 
 
+@lru_cache()
 def get_messages(file, channel, date):
     c = get_db_cursor(file)
     start_of_day = datetime.datetime(date.year, date.month, date.day, 0, 0, 0)

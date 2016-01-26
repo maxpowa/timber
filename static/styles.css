@@ -24,36 +24,36 @@ a {
   overflow: auto;
   overflow-x: hidden;
   height: 100%;
-  border-right: 1px solid #444444; }
+  border-right: 1px solid #5A5A5A; }
   #channels ul {
     list-style-type: none;
     margin: 0;
     padding: 10px;
-    border-top: 1px solid #444444; }
+    border-top: 1px solid #5A5A5A; }
     #channels ul a {
       color: #777777;
       text-decoration: none; }
     #channels ul li.current a {
       color: white; }
   #channels #calendar {
-    color: #555555;
+    color: #5A5A5A;
     padding: 10px; }
     #channels #calendar a {
       text-decoration: none;
-      color: #555555; }
+      color: #5A5A5A; }
       #channels #calendar a.current {
         color: white; }
 
 #log {
   padding: 10px;
   margin: 0 0 0 166px;
-  color: #444444; }
+  color: #5A5A5A; }
   #log div.highlight {
     color: white; }
     #log div.highlight span.nickname {
       color: #fb1263; }
   #log a[name] {
-    color: #444444;
+    color: #5A5A5A;
     text-decoration: none; }
     #log a[name]:hover {
       text-decoration: underline; }
@@ -63,18 +63,19 @@ a {
 body:not(.highlight) .msg {
   color: white; }
 body:not(.highlight) span.nickname {
-  color: #fb1263; }
+  color: #12FB32; }
 
 header {
   background-color: black;
-  height: 0;
+  height: 1em;
   line-height: 0;
-  position: fixed;
+  position: relative;
+  margin-bottom: 4px;
   top: 0;
   left: 0;
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid #444444; }
+  border-bottom: 1px solid #5A5A5A; }
   header a {
     text-decoration: none;
     color: #555555; }

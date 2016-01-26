@@ -25,7 +25,10 @@ def show_channel(channel, date=date.today().isoformat()):
     date = datetime.strptime(date, '%Y-%m-%d').date()
     channel = channel.replace(',', '#')
     channels = db.get_channels(SQLITE_DATABASE, channel)
-    messages = db.get_messages(SQLITE_DATABASE, channel, date)
+    if (date.isoformat() == date.today().isoformat()):
+        messages = db.get_messages.__wrapped__(SQLITE_DATABASE, channel, date)
+    else:
+        messages = db.get_messages(SQLITE_DATABASE, channel, date)
     return bottle.template('main', channels=channels, channel=channel, messages=messages, date=date)
 
 @app.hook('before_request')
