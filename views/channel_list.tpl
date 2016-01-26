@@ -1,5 +1,5 @@
 <ul>
-  <li class="">
+  <li class="{{'current' if not defined('channel') else ''}}">
     <a href="/">Console</a>
   </li>
   % for chan in channels:
