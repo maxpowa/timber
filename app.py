@@ -26,7 +26,7 @@ def show_channel(channel, date=date.today().isoformat()):
     channel = channel.replace(',', '#')
     channels = db.get_channels(SQLITE_DATABASE, channel)
     messages = db.get_messages(SQLITE_DATABASE, channel, date)
-    return bottle.template('main', channels=channels, channel=channel, date=date)
+    return bottle.template('main', channels=channels, channel=channel, messages=messages, date=date)
 
 @app.hook('before_request')
 def strip_path():

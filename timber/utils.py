@@ -16,6 +16,48 @@ class Channel(object):
         return self.name.replace('#', ',')
 
 
+class Message(object):
+    def __init__(self, row):
+        self.row = row
+        self.intent = row['intent']
+        self.message = row['message']
+        self.ts = datetime.datetime.strptime(row['sent_at'], "%Y-%m-%d %H:%M:%S.%f")
+        self.timestamp = int((self.ts- datetime.datetime(1970,1,1)).total_seconds())
+        self.nick = row['nick']
+        self.cssClass = 'msg' if self.intent == 'PRIVMSG' else 'info'
+
+
+    def pretty_time(self):
+        return self.ts.strftime('%H:%m')
+
+
+    def text(self):
+        MESSAGE_TPL = u"{message}"
+        ACTION_TPL = u"* {nick} {message}"
+        NICK_TPL = u"{nick} is now known as {message}"
+        JOIN_TPL = u"{nick} joined"
+        PART_TPL = u"{nick} left ({message})"
+        QUIT_TPL = u"{nick} quit ({message})"
+        KICK_TPL = u"{nick} kicked by {sender} ({message})"
+
+        intent = self.intent
+        msg = self.row
+        if (intent == 'PRIVMSG'):
+            return MESSAGE_TPL.format(**msg)
+        elif (intent == 'ACTION'):
+            return ACTION_TPL.format(**msg)
+        elif (intent == 'NICK'):
+            return NICK_TPL.format(**msg)
+        elif (intent == 'JOIN'):
+            return JOIN_TPL.format(**msg)
+        elif (intent == 'PART'):
+            return PART_TPL.format(**msg)
+        elif (intent == 'QUIT'):
+            return QUIT_TPL.format(**msg)
+        elif (intent == 'KICK'):
+            return KICK_TPL.format(**msg)
+
+
 def day_link(channel, date, match):
     d = date.strftime('%Y-%m-{0:02d}'.format(int(match.group(0))))
     cssCls = 'today' if datetime.date.today().isoformat() == d else ''

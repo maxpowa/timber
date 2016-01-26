@@ -1,12 +1,21 @@
 import os
 import sqlite3
-from timber.utils import Channel
+import datetime
+from timber.utils import Channel, Message
+
+
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return d
 
 
 def get_db_cursor(filename):
     fd = os.open(filename, os.O_RDONLY)
     c = sqlite3.connect('/dev/fd/%d' % fd)
     os.close(fd)
+    c.row_factory = dict_factory
     return c.cursor()
 
 
@@ -16,14 +25,18 @@ def get_channels(file, current):
     res = c.fetchall()
     channels = []
     for chan in res:
-        name = chan[0]
+        name = chan['channel']
         channels = channels + [Channel(name, name==current),]
     return channels
 
 
 def get_messages(file, channel, date):
     c = get_db_cursor(file)
-    c.execute('SELECT * FROM logquery WHERE channel = ?, sent_at > ?, sent_at < ?')
+    start_of_day = datetime.datetime(date.year, date.month, date.day, 0, 0, 0)
+    end_of_day = datetime.datetime(date.year, date.month, date.day, 23, 59, 59)
+    c.execute('SELECT * FROM logquery WHERE channel = ? AND sent_at > ? AND sent_at < ?', (channel, start_of_day, end_of_day))
     res = c.fetchall()
-
-    return
+    messages = []
+    for msg in res:
+        messages = messages + [Message(msg),]
+    return messages

@@ -1,8 +1,8 @@
 body {
   background-color: black;
   font-family: "Menlo", "Monaco", monospace;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 11px;
+  line-height: 14px;
   color: white;
   margin: 0;
   padding: 0; }
@@ -22,6 +22,7 @@ a {
   width: 165px;
   top: 0;
   overflow: auto;
+  overflow-x: hidden;
   height: 100%;
   border-right: 1px solid #444444; }
   #channels ul {
@@ -82,4 +83,3 @@ header {
     left: 10px;
     top: 0;
     font-size: 18px; }
-
