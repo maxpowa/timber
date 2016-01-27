@@ -5,7 +5,7 @@ var irclogger = {
 $(document).ready(function() {
     var hash = window.location.hash.substring(1);
 
-    var config = {
+    var autolinker_config = {
         stripPrefix: false,
         email: false,
         twitter: false,
@@ -19,7 +19,6 @@ $(document).ready(function() {
             tldMatches: false
         }
     };
-    $("#log").html(Autolinker.link($("#log").html(), config));
 
     if (hash.length > 0) {
         $(document.body).addClass("highlight");
@@ -35,6 +34,9 @@ $(document).ready(function() {
 
         if (anchors.length > 1) $("a[name='" + anchors[0] + "']")[0].scrollIntoView();
     }
+
+    // Autolinker
+    $("#log").html(Autolinker.link($("#log").html(), autolinker_config));
 
     $("#log a[name]").click(function() {
         if (irclogger.shift) {
