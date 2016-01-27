@@ -5,6 +5,22 @@ var irclogger = {
 $(document).ready(function() {
     var hash = window.location.hash.substring(1);
 
+    var config = {
+        stripPrefix: false,
+        email: false,
+        twitter: false,
+        truncate: {
+            length: 48,
+            location: 'smart'
+        },
+        urls: {
+            schemeMatches: true,
+            wwwMatches: true,
+            tldMatches: false
+        }
+    };
+    $("#log").html(Autolinker.link($("#log").html(), config));
+
     if (hash.length > 0) {
         $(document.body).addClass("highlight");
 
