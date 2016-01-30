@@ -6,7 +6,8 @@ import bottle
 from timber import db
 from datetime import date, datetime
 
-SQLITE_DATABASE = 'logquery.db'
+# PostgreSQL connection statement
+PG_CONNECT = ''
 
 app = application = bottle.Bottle()
 
@@ -16,7 +17,7 @@ def static(filename):
 
 @app.route('/')
 def show_index():
-    channels = db.get_channels(SQLITE_DATABASE, None)
+    channels = db.get_channels(PG_CONNECT, None)
     return bottle.template('main', channels=channels)
 
 @app.route('/<channel>')
@@ -24,11 +25,8 @@ def show_index():
 def show_channel(channel, date=date.today().isoformat()):
     date = datetime.strptime(date, '%Y-%m-%d').date()
     channel = channel.replace(',', '#')
-    channels = db.get_channels(SQLITE_DATABASE, channel)
-    if (date.isoformat() == date.today().isoformat()):
-        messages = db.get_messages.__wrapped__(SQLITE_DATABASE, channel, date)
-    else:
-        messages = db.get_messages(SQLITE_DATABASE, channel, date)
+    channels = db.get_channels(PG_CONNECT, channel)
+    messages = db.get_messages(PG_CONNECT, channel, date)
     return bottle.template('main', channels=channels, channel=channel, messages=messages, date=date)
 
 @app.hook('before_request')
