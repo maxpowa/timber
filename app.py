@@ -8,8 +8,9 @@ from timber import db
 from datetime import date, datetime
 
 # PostgreSQL connection statement
-assert os.getenv('PG_CONNECT', False)
-PG_CONNECT = os.environ['PG_CONNECT']
+if not os.getenv('PG_CONNECT', False):
+    raise ValueError('No PG_CONNECT env var defined.')
+PG_CONNECT = os.getenv('PG_CONNECT', False)
 
 app = application = bottle.Bottle()
 

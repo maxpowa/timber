@@ -13,6 +13,7 @@ RUN apk del build-deps
 
 COPY . /usr/src/app
 
+EXPOSE 8080
 ENV PG_CONNECT=''
 
 CMD [ "python", "./app.py" ]
