@@ -2,12 +2,13 @@
 '''
 Timber - An IRC log viewer, inspired by irclogger.com
 '''
+import os
 import bottle
 from timber import db
 from datetime import date, datetime
 
 # PostgreSQL connection statement
-assert os.environ['PG_CONNECT']
+assert os.getenv('PG_CONNECT', False)
 PG_CONNECT = os.environ['PG_CONNECT']
 
 app = application = bottle.Bottle()
