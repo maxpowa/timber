@@ -7,7 +7,8 @@ from timber import db
 from datetime import date, datetime
 
 # PostgreSQL connection statement
-PG_CONNECT = ''
+assert os.environ['PG_CONNECT']
+PG_CONNECT = os.environ['PG_CONNECT']
 
 app = application = bottle.Bottle()
 
@@ -28,7 +29,7 @@ def show_channel(channel, date=date.today().isoformat()):
     channels = db.get_channels(PG_CONNECT, channel)
     messages = db.get_messages(PG_CONNECT, channel, date)
     return bottle.template('main', channels=channels, channel=channel, messages=messages, date=date)
-    
+
 @app.route('/logs/channel/<channel>')
 def redirect_old_channel(channel):
     return bottle.redirect('/,'+channel)
