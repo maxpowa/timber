@@ -48,7 +48,7 @@ class Message(object):
         PART_TPL = u"{nick} left ({message})"
         QUIT_TPL = u"{nick} quit ({message})"
         KICK_TPL = u"{nick} kicked {args[1]} ({message})"
-        MODE_TPL = u"{nick} set {message}"
+        MODE_TPL = u"{nick} set {args[1]} on {message}"
 
         response = ''
         intent = self.intent
