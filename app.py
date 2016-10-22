@@ -20,7 +20,7 @@ def static(filename):
 
 @app.route('/')
 def show_index():
-    channels = db.get_channels(PG_CONNECT, None)
+    channels = db.get_channels(PG_CONNECT, None, datetime.strptime(date.today().isoformat(), '%Y-%m-%d').date())
     return bottle.template('main', channels=channels)
 
 @app.route('/<channel>')
@@ -28,7 +28,7 @@ def show_index():
 def show_channel(channel, date=date.today().isoformat()):
     date = datetime.strptime(date, '%Y-%m-%d').date()
     channel = channel.replace(',', '#')
-    channels = db.get_channels(PG_CONNECT, channel)
+    channels = db.get_channels(PG_CONNECT, channel, date)
     messages = db.get_messages(PG_CONNECT, channel, date)
     return bottle.template('main', channels=channels, channel=channel, messages=messages, date=date)
 

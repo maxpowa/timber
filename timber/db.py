@@ -10,9 +10,11 @@ def get_db_cursor(connect_stmt):
     return c.cursor(cursor_factory=DictCursor)
 
 
-def get_channels(connect_stmt, current):
+def get_channels(connect_stmt, current, date):
     c = get_db_cursor(connect_stmt)
-    c.execute('SELECT lower(channel) FROM chanlogs GROUP BY lower(channel) ORDER BY lower(channel) ASC;')
+    start_of_day = datetime.datetime(date.year, date.month, date.day, 0, 0, 0).isoformat()
+    end_of_day = datetime.datetime(date.year, date.month, date.day, 23, 59, 59).isoformat()
+    c.execute('SELECT lower(channel) FROM chanlogs WHERE timestamp>%s::timestamp AND timestamp<%s::timestamp GROUP BY lower(channel) ORDER BY lower(channel) ASC;', (start_of_day, end_of_day))
     res = c.fetchall()
     c.close()
     channels = []
